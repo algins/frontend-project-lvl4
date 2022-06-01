@@ -1,6 +1,9 @@
 export default {
   translation: {
-    loginForm: {
+    app: {
+      logout: 'Выйти',
+    },
+    loginPage: {
       dontHaveAccount: 'Нет аккаунта?',
       invalidEmailOrPassword: 'Неверные имя пользователя или пароль',
       login: 'Войти',
