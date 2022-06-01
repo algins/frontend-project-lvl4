@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './Home.jsx';
-import Login from './Login.jsx';
-import NotFound from './NotFound.jsx';
+import HomePage from './HomePage.jsx';
+import LoginPage from './LoginPage.jsx';
+import NotFoundPage from './NotFoundPage.jsx';
 
 const App = () => (
   <Router>
@@ -18,13 +18,13 @@ const App = () => (
           <div className="col-12 col-md-8 col-xxl-6">
             <Switch>
               <Route exact path="/">
-                <Home />
+                <HomePage />
               </Route>
               <Route path="/login">
-                <Login />
+                <LoginPage />
               </Route>
               <Route path="*">
-                <NotFound />
+                <NotFoundPage />
               </Route>
             </Switch>
           </div>

@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
-import App from './App.jsx';
+import App from './components/App.jsx';
 import resources from './locales/index.js';
 import setLocale from './locales/yup/setLocale.js';
 

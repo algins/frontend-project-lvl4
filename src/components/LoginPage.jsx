@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 
-const Login = () => {
+const LoginPage = () => {
   const { t } = useTranslation();
 
   const onSubmit = async (values, { setSubmitting }) => {
@@ -105,4 +105,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;
