@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Col,
-  Container,
-  Navbar,
-  Row,
-} from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Row from 'react-bootstrap/Row';
 import { useTranslation } from 'react-i18next';
 import {
   Redirect,

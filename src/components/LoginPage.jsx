@@ -1,17 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Button,
-  Card,
-  Col,
-  Form,
-  Row,
-} from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image';
+import Row from 'react-bootstrap/Row';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import LoginFormImage from './LoginFormImage.jsx';
 import useAuth from '../hooks/index.jsx';
 import routes from '../routes.js';
 
@@ -38,7 +36,7 @@ const LoginPage = () => {
         const res = await axios.post(routes.api.loginPath(), values);
         localStorage.setItem('authUser', JSON.stringify(res.data));
         auth.logIn();
-        history.push(routes.web.homePath());
+        history.replace(routes.web.homePath());
       } catch (err) {
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
@@ -65,7 +63,11 @@ const LoginPage = () => {
           md={6}
           className="d-flex align-items-center justify-content-center"
         >
-          <LoginFormImage />
+          <Image
+            roundedCircle
+            src="https://picsum.photos/id/8/200/200"
+            alt={t('loginForm.login')}
+          />
         </Col>
 
         <Col
