@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import Row from 'react-bootstrap/Row';
 import { useTranslation } from 'react-i18next';
 import {
   Redirect,
@@ -11,7 +9,7 @@ import {
   BrowserRouter as Router,
   Switch,
 } from 'react-router-dom';
-import HomePage from './HomePage.jsx';
+import ChatPage from './ChatPage.jsx';
 import LoginPage from './LoginPage.jsx';
 import NotFoundPage from './NotFoundPage.jsx';
 import AuthContext from '../contexts/index.jsx';
@@ -19,9 +17,13 @@ import useAuth from '../hooks/index.jsx';
 import routes from '../routes.js';
 
 const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('authUser'));
 
-  const logIn = () => setLoggedIn(true);
+  const logIn = (authUser) => {
+    localStorage.setItem('authUser', authUser);
+    setLoggedIn(true);
+  };
+
   const logOut = () => {
     localStorage.removeItem('authUser');
     setLoggedIn(false);
@@ -61,36 +63,26 @@ const App = () => (
           variant="light"
         >
           <Container>
-            <Navbar.Brand href={routes.web.homePath()}>Hexlet Chat</Navbar.Brand>
+            <Navbar.Brand href={routes.web.chatPath()}>Hexlet Chat</Navbar.Brand>
             <AuthButton />
           </Container>
         </Navbar>
 
-        <Container fluid className="h-100">
-          <Row className="justify-content-center align-content-center h-100">
-            <Col
-              xs={12}
-              md={8}
-              xxl={6}
-            >
-              <Switch>
-                <Route exact path={routes.web.homePath()}>
-                  <PrivateRoute>
-                    <HomePage />
-                  </PrivateRoute>
-                </Route>
+        <Switch>
+          <Route exact path={routes.web.chatPath()}>
+            <PrivateRoute>
+              <ChatPage />
+            </PrivateRoute>
+          </Route>
 
-                <Route path={routes.web.loginPath()}>
-                  <LoginPage />
-                </Route>
+          <Route path={routes.web.loginPath()}>
+            <LoginPage />
+          </Route>
 
-                <Route path="*">
-                  <NotFoundPage />
-                </Route>
-              </Switch>
-            </Col>
-          </Row>
-        </Container>
+          <Route path="*">
+            <NotFoundPage />
+          </Route>
+        </Switch>
       </div>
     </Router>
   </AuthProvider>
