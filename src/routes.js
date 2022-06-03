@@ -9,7 +9,7 @@ export default {
     loginPath: () => [host, prefix, 'login'].join('/'),
   },
   web: {
-    chatPath: () => [host, ''].join('/'),
+    homePath: () => [host, ''].join('/'),
     loginPath: () => [host, 'login'].join('/'),
   },
 };
