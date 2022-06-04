@@ -1,14 +1,14 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { useTranslation } from 'react-i18next';
-import useAuth from '../hooks/index.jsx';
+import useAuth from '../hooks/useAuth.js';
 
 const LogoutButton = () => {
   const { t } = useTranslation();
-  const auth = useAuth();
+  const { authUser, logOut } = useAuth();
 
   return (
-    auth.loggedIn ? <Button onClick={auth.logOut}>{t('logoutButton.logout')}</Button> : null
+    authUser ? <Button onClick={logOut}>{t('logoutButton.logout')}</Button> : null
   );
 };
 

@@ -11,6 +11,9 @@ const messagesSlice = createSlice({
     setMessages(state, { payload }) {
       state.messages = payload;
     },
+    addMessage: (state, { payload }) => {
+      state.messages = [payload, ...state.messages];
+    },
   },
 });
 

@@ -11,12 +11,12 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import useAuth from '../hooks/index.jsx';
+import useAuth from '../hooks/useAuth.js';
 import routes from '../routes.js';
 
 const LoginForm = () => {
   const { t } = useTranslation();
-  const auth = useAuth();
+  const { logIn } = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
   const history = useHistory();
@@ -35,7 +35,7 @@ const LoginForm = () => {
 
       try {
         const res = await axios.post(routes.api.loginPath(), values);
-        auth.logIn(JSON.stringify(res.data));
+        logIn(res.data);
         history.replace(routes.web.homePath());
       } catch (err) {
         if (err.isAxiosError && err.response.status === 401) {

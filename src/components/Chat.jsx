@@ -1,32 +1,30 @@
 import axios from 'axios';
-import React, { useEffect, useRef } from 'react';
-import Button from 'react-bootstrap/Button';
+import React, { useEffect } from 'react';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, batch } from 'react-redux';
 import Channels from './Channels.jsx';
+import MessageForm from './MessageForm.jsx';
 import Messages from './Messages.jsx';
 import routes from '../routes.js';
+import useAuth from '../hooks/useAuth.js';
 import { actions as channelsActions } from '../slices/channelsSlice.js';
 import { actions as messagesActions } from '../slices/messagesSlice.js';
-
-const getAuthHeader = () => {
-  const authUser = JSON.parse(localStorage.getItem('authUser'));
-
-  if (authUser && authUser.token) {
-    return { Authorization: `Bearer ${authUser.token}` };
-  }
-
-  return {};
-};
 
 const Chat = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const inputRef = useRef();
+  const { authUser } = useAuth();
+
+  const getAuthHeader = () => {
+    if (authUser && authUser.token) {
+      return { Authorization: `Bearer ${authUser.token}` };
+    }
+
+    return {};
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +39,6 @@ const Chat = () => {
     };
 
     fetchData();
-    inputRef.current.focus();
   }, []);
 
   return (
@@ -64,25 +61,7 @@ const Chat = () => {
             <Messages />
 
             <div className="mt-auto px-5 py-3">
-              <Form noValidate className="border rounded-2">
-                <div className="input-group has-validation">
-                  <Form.Control
-                    aria-label={t('chat.newMessage')}
-                    placeholder={t('chat.typeMessage')}
-                    name="body"
-                    className="border-0 p-0 ps-2"
-                    ref={inputRef}
-                  />
-
-                  <Button
-                    type="submit"
-                    disabled
-                    className="btn btn-group-vertical"
-                  >
-                    {t('chat.sendMessage')}
-                  </Button>
-                </div>
-              </Form>
+              <MessageForm />
             </div>
           </div>
         </Col>

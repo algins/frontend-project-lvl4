@@ -1,13 +1,13 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import useAuth from '../hooks/index.jsx';
+import useAuth from '../hooks/useAuth.js';
 import routes from '../routes.js';
 
 const PrivateRoute = ({ children }) => {
-  const auth = useAuth();
+  const { authUser } = useAuth();
 
   return (
-    auth.loggedIn ? children : <Redirect to={routes.web.loginPath()} />
+    authUser ? children : <Redirect to={routes.web.loginPath()} />
   );
 };
 

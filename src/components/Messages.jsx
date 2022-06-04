@@ -29,11 +29,11 @@ const Messages = () => {
       </div>
 
       <div id="messages-box" className="chat-messages overflow-auto px-5 ">
-        {channelMessages.map(({ author, text }) => (
-          <div className="text-break mb-2">
-            <b>{author}</b>
-            :
-            {text}
+        {channelMessages.map(({ id, sender, body }) => (
+          <div key={id} className="text-break mb-2">
+            <b>{sender}</b>
+            :&nbsp;
+            {body}
           </div>
         ))}
       </div>

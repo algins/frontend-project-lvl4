@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import AuthContext from '../contexts/index.jsx';
+import AuthContext from '../contexts/auth.js';
 
 const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(
-    !!localStorage.getItem('authUser'),
+  const [authUser, setAuthUser] = useState(
+    JSON.parse(localStorage.getItem('authUser')),
   );
 
-  const logIn = (authUser) => {
-    localStorage.setItem('authUser', authUser);
-    setLoggedIn(true);
+  const logIn = (user) => {
+    localStorage.setItem('authUser', JSON.stringify(user));
+    setAuthUser(user);
   };
 
   const logOut = () => {
     localStorage.removeItem('authUser');
-    setLoggedIn(false);
+    setAuthUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
+    <AuthContext.Provider value={{ authUser, logIn, logOut }}>
       {children}
     </AuthContext.Provider>
   );

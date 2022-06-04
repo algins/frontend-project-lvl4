@@ -5,9 +5,6 @@ export default {
     },
     chat: {
       channels: 'Каналы',
-      newMessage: 'Новое сообщение',
-      sendMessage: 'Отправить',
-      typeMessage: 'Введите сообщение...',
     },
     loginForm: {
       dontHaveAccount: 'Нет аккаунта?',
@@ -19,6 +16,11 @@ export default {
     },
     logoutButton: {
       logout: 'Выйти',
+    },
+    messageForm: {
+      newMessage: 'Новое сообщение',
+      sendMessage: 'Отправить',
+      typeMessage: 'Введите сообщение...',
     },
     messages: {
       count: '{{count}} сообщений',
