@@ -6,19 +6,12 @@ import { actions as messagesActions } from '../slices/messagesSlice.js';
 const SocketProvider = ({ socket, children }) => {
   const dispatch = useDispatch();
 
-  socket.on(
-    'newMessage',
-    (message) => {
-      dispatch(messagesActions.addMessage(message));
-    },
-  );
-
-  const sendMessage = (message) => {
-    socket.emit('newMessage', message);
-  };
+  socket.on('newMessage', (message) => {
+    dispatch(messagesActions.addMessage(message));
+  });
 
   return (
-    <SocketContext.Provider value={{ sendMessage }}>
+    <SocketContext.Provider value={socket}>
       {children}
     </SocketContext.Provider>
   );

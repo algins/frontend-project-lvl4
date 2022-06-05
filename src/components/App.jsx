@@ -20,6 +20,7 @@ const App = () => {
           bg="white"
           expand="lg"
           variant="light"
+          className="shadow-sm"
         >
           <Container>
             <Navbar.Brand href={routes.web.homePath()}>{t('app.title')}</Navbar.Brand>

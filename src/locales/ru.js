@@ -6,12 +6,15 @@ export default {
     chat: {
       channels: 'Каналы',
     },
+    errors: {
+      network: 'Ошибка сети',
+    },
     loginForm: {
       dontHaveAccount: 'Нет аккаунта?',
       invalidEmailOrPassword: 'Неверные имя пользователя или пароль',
       login: 'Войти',
       password: 'Пароль',
-      registration: 'Регистрация',
+      signup: 'Регистрация',
       username: 'Ваш ник',
     },
     logoutButton: {

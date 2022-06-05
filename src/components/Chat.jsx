@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -17,6 +17,7 @@ const Chat = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { authUser } = useAuth();
+  const [error, setError] = useState(null);
 
   const getAuthHeader = () => {
     if (authUser && authUser.token) {
@@ -28,27 +29,32 @@ const Chat = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get(routes.api.dataPath(), { headers: getAuthHeader() });
-      const { channels, messages, currentChannelId } = data;
+      try {
+        const { data } = await axios.get(routes.api.dataPath(), { headers: getAuthHeader() });
+        const { channels, messages, currentChannelId } = data;
 
-      batch(() => {
-        dispatch(channelsActions.setChannels(channels));
-        dispatch(messagesActions.setMessages(messages));
-        dispatch(channelsActions.setCurrentChannelId(currentChannelId));
-      });
+        batch(() => {
+          dispatch(channelsActions.setChannels(channels));
+          dispatch(messagesActions.setMessages(messages));
+          dispatch(channelsActions.setCurrentChannelId(currentChannelId));
+        });
+
+        setError(null);
+      } catch (err) {
+        setError(t('errors.network'));
+      }
     };
 
     fetchData();
   }, []);
 
   return (
-    <Container className="h-100 my-sm-4 overflow-hidden rounded shadow">
+    <Container className="h-100 my-4 overflow-hidden rounded shadow">
       <Row className="h-100 bg-white flex-md-row">
         <Col
-          xs={12}
           sm={4}
           md={2}
-          className="border-end pt-2 pt-sm-5 px-0 bg-light"
+          className="border-end pt-5 px-0 bg-light"
         >
           <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
             <span>{t('chat.channels')}</span>
@@ -57,11 +63,12 @@ const Chat = () => {
           <Channels />
         </Col>
 
-        <Col className="p-0">
+        <Col className="p-0 h-100">
           <div className="d-flex flex-column h-100">
             <Messages />
 
-            <div className="mt-auto px-2 px-sm-5 py-3">
+            <div className="mt-auto px-5 py-3">
+              <div className="text-danger text-break mb-2">{error}</div>
               <MessageForm />
             </div>
           </div>

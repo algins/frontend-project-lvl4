@@ -11,5 +11,6 @@ export default {
   web: {
     homePath: () => [host, ''].join('/'),
     loginPath: () => [host, 'login'].join('/'),
+    signupPath: () => [host, 'signup'].join('/'),
   },
 };

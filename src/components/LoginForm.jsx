@@ -134,7 +134,7 @@ const LoginForm = () => {
               <div className="text-center">
                 <span>{t('loginForm.dontHaveAccount')}</span>
                 &nbsp;
-                <a href="/signup">{t('loginForm.registration')}</a>
+                <a href={routes.web.signupPath()}>{t('loginForm.signup')}</a>
               </div>
             </Card.Footer>
           </Card>
