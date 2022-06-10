@@ -56,10 +56,6 @@ const Chat = () => {
           md={2}
           className="border-end pt-5 px-0 bg-light"
         >
-          <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
-            <span>{t('chat.channels')}</span>
-          </div>
-
           <Channels />
         </Col>
 

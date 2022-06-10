@@ -1,10 +1,18 @@
 export default {
   translation: {
+    addChannelModal: {
+      cancel: 'Отменить',
+      ok: 'Отправить',
+      title: 'Добавить канал',
+    },
     app: {
       title: 'Hexlet Chat',
     },
-    chat: {
-      channels: 'Каналы',
+    channels: {
+      actions: 'Управление каналом',
+      remove: 'Удалить',
+      rename: 'Переименовать',
+      title: 'Каналы',
     },
     errors: {
       network: 'Ошибка сети',
@@ -33,7 +41,21 @@ export default {
       goTo: 'Но вы можете перейти',
       title: 'Страница не найдена',
     },
+    removeChannelModal: {
+      cancel: 'Отменить',
+      confirm: 'Уверены?',
+      ok: 'Удалить',
+      title: 'Удалить канал',
+    },
+    renameChannelModal: {
+      cancel: 'Отменить',
+      ok: 'Отправить',
+      title: 'Переименовать канал',
+    },
     validation: {
+      max: 'От 3 до 20 символов',
+      min: 'От 3 до 20 символов',
+      notOneOf: 'Должно быть уникальным',
       required: 'Обязательное поле',
     },
   },
