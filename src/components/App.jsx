@@ -3,6 +3,8 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { useTranslation } from 'react-i18next';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Chat from './Chat.jsx';
 import LoginForm from './LoginForm.jsx';
 import LogoutButton from './LogoutButton.jsx';
@@ -49,6 +51,8 @@ const App = () => {
           </Route>
         </Switch>
       </div>
+
+      <ToastContainer />
     </Router>
   );
 };

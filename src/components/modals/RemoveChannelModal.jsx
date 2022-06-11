@@ -1,13 +1,13 @@
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import useSocket from '../../hooks/useSocket.js';
 
 const RemoveChannelModal = (props) => {
   const { onHide, modalInfo } = props;
   const { t } = useTranslation();
-  const [error, setError] = useState(null);
   const socket = useSocket();
 
   const formik = useFormik({
@@ -17,10 +17,10 @@ const RemoveChannelModal = (props) => {
         id: modalInfo.data,
       }, (res) => {
         if (res.status === 'ok') {
-          setError(null);
           onHide();
+          toast.success(t('removeChannelModal.channelRemoved'));
         } else {
-          setError(t('errors.network'));
+          toast.error(t('errors.network'));
         }
       });
     },
@@ -35,7 +35,6 @@ const RemoveChannelModal = (props) => {
       <Form onSubmit={formik.handleSubmit}>
         <Modal.Body>
           <p className="lead">{t('removeChannelModal.confirm')}</p>
-          <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
         </Modal.Body>
 
         <Modal.Footer>

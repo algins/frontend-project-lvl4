@@ -1,16 +1,16 @@
 import { useFormik } from 'formik';
 import { uniqueId } from 'lodash';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import useSocket from '../../hooks/useSocket.js';
 
 const AddChannelModal = (props) => {
   const { onHide } = props;
   const { t } = useTranslation();
-  const [error, setError] = useState(null);
   const socket = useSocket();
   const inputRef = useRef();
 
@@ -34,10 +34,10 @@ const AddChannelModal = (props) => {
         removable: true,
       }, (res) => {
         if (res.status === 'ok') {
-          setError(null);
           onHide();
+          toast.success(t('addChannelModal.channelAdded'));
         } else {
-          setError(t('errors.network'));
+          toast.error(t('errors.network'));
         }
       });
     },
@@ -67,7 +67,7 @@ const AddChannelModal = (props) => {
               isInvalid={formik.errors.name}
             />
 
-            <Form.Control.Feedback type="invalid">{formik.errors.name || error}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
           </Form.Group>
         </Modal.Body>
 

@@ -2,6 +2,7 @@ export default {
   translation: {
     addChannelModal: {
       cancel: 'Отменить',
+      channelAdded: 'Канал создан',
       ok: 'Отправить',
       title: 'Добавить канал',
     },
@@ -44,12 +45,14 @@ export default {
     },
     removeChannelModal: {
       cancel: 'Отменить',
+      channelRemoved: 'Канал удалён',
       confirm: 'Уверены?',
       ok: 'Удалить',
       title: 'Удалить канал',
     },
     renameChannelModal: {
       cancel: 'Отменить',
+      channelRenamed: 'Канал переименован',
       ok: 'Отправить',
       title: 'Переименовать канал',
     },

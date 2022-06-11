@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, batch } from 'react-redux';
+import { toast } from 'react-toastify';
 import Channels from './Channels.jsx';
 import MessageForm from './MessageForm.jsx';
 import Messages from './Messages.jsx';
@@ -17,7 +18,6 @@ const Chat = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { authUser } = useAuth();
-  const [error, setError] = useState(null);
 
   const getAuthHeader = () => {
     if (authUser && authUser.token) {
@@ -38,10 +38,8 @@ const Chat = () => {
           dispatch(messagesActions.setMessages(messages));
           dispatch(channelsActions.setCurrentChannelId(currentChannelId));
         });
-
-        setError(null);
       } catch (err) {
-        setError(t('errors.network'));
+        toast.error(t('errors.network'));
       }
     };
 
@@ -64,7 +62,6 @@ const Chat = () => {
             <Messages />
 
             <div className="mt-auto px-5 py-3">
-              <div className="text-danger text-break mb-2">{error}</div>
               <MessageForm />
             </div>
           </div>
