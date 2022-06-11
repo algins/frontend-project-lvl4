@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -38,7 +39,7 @@ const Messages = () => {
           <div key={id} className="text-break mb-2">
             <b>{sender}</b>
             :&nbsp;
-            {body}
+            {filter.clean(body)}
           </div>
         ))}
         <div ref={bottomRef} />
