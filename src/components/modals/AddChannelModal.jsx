@@ -42,13 +42,7 @@ const AddChannelModal = (props) => {
       });
     },
     validationSchema: yup.object().shape({
-      name: yup
-        .string()
-        .trim()
-        .required()
-        .min(3)
-        .max(20)
-        .notOneOf(channelNames),
+      name: yup.string().trim().required().min(3).max(20).notOneOf(channelNames),
     }),
     validateOnBlur: false,
     validateOnMount: false,

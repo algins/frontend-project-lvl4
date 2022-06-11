@@ -7,6 +7,7 @@ export default {
   api: {
     dataPath: () => [host, prefix, 'data'].join('/'),
     loginPath: () => [host, prefix, 'login'].join('/'),
+    signupPath: () => [host, prefix, 'signup'].join('/'),
   },
   web: {
     homePath: () => [host, ''].join('/'),

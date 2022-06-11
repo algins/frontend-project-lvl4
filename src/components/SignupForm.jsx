@@ -14,10 +14,10 @@ import * as yup from 'yup';
 import useAuth from '../hooks/useAuth.js';
 import routes from '../routes.js';
 
-const LoginForm = () => {
+const SignupForm = () => {
   const { t } = useTranslation();
   const { logIn } = useAuth();
-  const [authFailed, setAuthFailed] = useState(false);
+  const [signupFailed, setSignupFailed] = useState(false);
   const inputRef = useRef();
   const history = useHistory();
 
@@ -29,17 +29,18 @@ const LoginForm = () => {
     initialValues: {
       username: '',
       password: '',
+      confirmPassword: '',
     },
-    onSubmit: async (values) => {
-      setAuthFailed(false);
+    onSubmit: async ({ username, password }) => {
+      setSignupFailed(false);
 
       try {
-        const res = await axios.post(routes.api.loginPath(), values);
+        const res = await axios.post(routes.api.signupPath(), { username, password });
         logIn(res.data);
         history.replace(routes.web.homePath());
       } catch (err) {
-        if (err.isAxiosError && err.response.status === 401) {
-          setAuthFailed(true);
+        if (err.isAxiosError && err.response.status === 409) {
+          setSignupFailed(true);
           inputRef.current.select();
           return;
         }
@@ -47,8 +48,12 @@ const LoginForm = () => {
       }
     },
     validationSchema: yup.object().shape({
-      username: yup.string().trim().required(),
-      password: yup.string().required(),
+      username: yup.string().trim().required().min(3).max(20),
+      password: yup.string().required().min(6),
+      confirmPassword: yup.string().required().oneOf([
+        yup.ref('password'),
+        null,
+      ]),
     }),
     validateOnBlur: false,
     validateOnMount: false,
@@ -73,7 +78,7 @@ const LoginForm = () => {
                 <Image
                   roundedCircle
                   src="https://picsum.photos/id/8/200/200"
-                  alt={t('loginForm.title')}
+                  alt={t('signupForm.title')}
                 />
               </Col>
 
@@ -84,22 +89,27 @@ const LoginForm = () => {
                 onSubmit={formik.handleSubmit}
                 className="mt-3 mt-mb-0"
               >
-                <h1 className="text-center mb-4">{t('loginForm.title')}</h1>
+                <h1 className="text-center mb-4">{t('signupForm.title')}</h1>
 
                 <Form.Group className="form-floating mb-3">
                   <Form.Control
                     onChange={formik.handleChange}
                     value={formik.values.username}
-                    placeholder={t('loginForm.username')}
+                    placeholder={t('signupForm.usernamePlaceholder')}
                     name="username"
                     id="username"
                     autoComplete="username"
-                    isInvalid={authFailed}
+                    isInvalid={formik.errors.username || signupFailed}
                     required
                     ref={inputRef}
                   />
 
-                  <Form.Label htmlFor="username">{t('loginForm.username')}</Form.Label>
+                  <Form.Label htmlFor="username">{t('signupForm.username')}</Form.Label>
+
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.username}
+                    {signupFailed && t('signupForm.userExists')}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className="form-floating mb-4">
@@ -107,16 +117,33 @@ const LoginForm = () => {
                     type="password"
                     onChange={formik.handleChange}
                     value={formik.values.password}
-                    placeholder={t('loginForm.password')}
+                    placeholder={t('signipForm.passwordPlaceholder')}
                     name="password"
                     id="password"
                     autoComplete="current-password"
-                    isInvalid={authFailed}
+                    isInvalid={formik.errors.password}
                     required
                   />
 
-                  <Form.Label htmlFor="password">{t('loginForm.password')}</Form.Label>
-                  <Form.Control.Feedback type="invalid">{t('loginForm.invalidEmailOrPassword')}</Form.Control.Feedback>
+                  <Form.Label htmlFor="password">{t('signupForm.password')}</Form.Label>
+                  <Form.Control.Feedback type="invalid">{formik.errors.password}</Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group className="form-floating mb-4">
+                  <Form.Control
+                    type="password"
+                    onChange={formik.handleChange}
+                    value={formik.values.confirmPassword}
+                    placeholder={t('signupForm.confirmPasswordPlaceholder')}
+                    name="confirmPassword"
+                    id="confirmPassword"
+                    autoComplete="new-password"
+                    isInvalid={formik.errors.confirmPassword}
+                    required
+                  />
+
+                  <Form.Label htmlFor="password">{t('signupForm.confirmPassword')}</Form.Label>
+                  <Form.Control.Feedback type="invalid">{formik.errors.confirmPassword}</Form.Control.Feedback>
                 </Form.Group>
 
                 <Button
@@ -125,18 +152,10 @@ const LoginForm = () => {
                   className="w-100 mb-3"
                   disabled={formik.isSubmitting}
                 >
-                  {t('loginForm.login')}
+                  {t('signupForm.signup')}
                 </Button>
               </Col>
             </Row>
-
-            <Card.Footer className="p-4">
-              <div className="text-center">
-                <span>{t('loginForm.dontHaveAccount')}</span>
-                &nbsp;
-                <a href={routes.web.signupPath()}>{t('loginForm.signup')}</a>
-              </div>
-            </Card.Footer>
           </Card>
         </Col>
       </Row>
@@ -144,4 +163,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignupForm;

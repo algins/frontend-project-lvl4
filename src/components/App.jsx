@@ -8,6 +8,7 @@ import LoginForm from './LoginForm.jsx';
 import LogoutButton from './LogoutButton.jsx';
 import NotFoundPage from './NotFoundPage.jsx';
 import PrivateRoute from './PrivateRoute.jsx';
+import SignupForm from './SignupForm.jsx';
 import routes from '../routes.js';
 
 const App = () => {
@@ -37,6 +38,10 @@ const App = () => {
 
           <Route path={routes.web.loginPath()}>
             <LoginForm />
+          </Route>
+
+          <Route path={routes.web.signupPath()}>
+            <SignupForm />
           </Route>
 
           <Route path="*">
