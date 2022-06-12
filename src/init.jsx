@@ -11,7 +11,7 @@ import resources from './locales/index.js';
 import setLocale from './locales/yup/setLocale.js';
 import store from './slices/index.js';
 
-export default () => {
+const init = () => {
   const rollbarConfig = {
     accessToken: '08ee2c1cc9ea4e979ae63ece376be02d',
     captureUncaught: true,
@@ -43,3 +43,5 @@ export default () => {
     </Provider>
   );
 };
+
+export default init;
