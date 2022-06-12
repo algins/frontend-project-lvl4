@@ -16,7 +16,7 @@ export default {
       title: 'Каналы',
     },
     errors: {
-      network: 'Ошибка сети',
+      network: 'Ошибка соединения',
     },
     loginForm: {
       dontHaveAccount: 'Нет аккаунта?',
