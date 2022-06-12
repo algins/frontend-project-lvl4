@@ -9,17 +9,22 @@ const messagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    setMessages(state, { payload }) {
-      state.messages = payload;
-    },
-    newMessage: (state, { payload }) => {
-      state.messages = [...state.messages, payload];
-    },
+    setMessages: (state, { payload }) => ({
+      ...state,
+      messages: payload,
+    }),
+    newMessage: (state, { payload }) => ({
+      ...state,
+      messages: [...state.messages, payload],
+    }),
   },
   extraReducers: (builder) => {
     builder.addCase(channelsActions.removeChannel, (state, action) => {
       const removedChannelId = action.payload;
-      state.messages = state.messages.filter(({ channelId }) => channelId !== removedChannelId);
+      return {
+        ...state,
+        messages: state.messages.filter(({ channelId }) => channelId !== removedChannelId),
+      };
     });
   },
 });

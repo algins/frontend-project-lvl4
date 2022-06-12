@@ -31,7 +31,6 @@ rules:
   react/function-component-definition: 0
   react/jsx-no-constructed-context-values: 0
   no-console: 0
-  no-param-reassign: 0
   functional/no-conditional-statement: 0
   functional/no-expression-statement: 0
   functional/immutable-data: 0

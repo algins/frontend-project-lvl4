@@ -11,9 +11,10 @@ const modalsSlice = createSlice({
   name: 'modals',
   initialState,
   reducers: {
-    setModalInfo(state, { payload }) {
-      state.modalInfo = payload;
-    },
+    setModalInfo: (state, { payload }) => ({
+      ...state,
+      modalInfo: payload,
+    }),
   },
 });
 
