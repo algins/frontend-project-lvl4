@@ -144,7 +144,7 @@ const SignupForm = () => {
                     required
                   />
 
-                  <Form.Label htmlFor="password">{t('signupForm.confirmPassword')}</Form.Label>
+                  <Form.Label htmlFor="confirmPassword">{t('signupForm.confirmPassword')}</Form.Label>
                   <Form.Control.Feedback type="invalid">{formik.errors.confirmPassword}</Form.Control.Feedback>
                 </Form.Group>
 
