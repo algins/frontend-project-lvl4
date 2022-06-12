@@ -25,9 +25,6 @@ deploy:
 	git push heroku
 
 test:
-	npm test -s
-
-test-coverage:
-	npm test -- --coverage
+	npx playwright test
 
 .PHONY: test

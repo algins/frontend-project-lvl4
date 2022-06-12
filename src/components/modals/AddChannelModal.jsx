@@ -42,7 +42,10 @@ const AddChannelModal = (props) => {
       });
     },
     validationSchema: yup.object().shape({
-      name: yup.string().trim().required().min(3).max(20).notOneOf(channelNames),
+      name: yup.string().trim().required()
+        .min(3, t('addChannelModal.nameLength'))
+        .max(20, t('addChannelModal.nameLength'))
+        .notOneOf(channelNames),
     }),
     validateOnBlur: false,
     validateOnMount: false,
@@ -67,6 +70,7 @@ const AddChannelModal = (props) => {
               isInvalid={formik.errors.name}
             />
 
+            <Form.Label visuallyHidden htmlFor="name">{t('addChannelModal.name')}</Form.Label>
             <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
           </Form.Group>
         </Modal.Body>

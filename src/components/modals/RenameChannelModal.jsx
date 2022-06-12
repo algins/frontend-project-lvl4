@@ -40,7 +40,10 @@ const RenameChannelModal = (props) => {
       });
     },
     validationSchema: yup.object().shape({
-      name: yup.string().trim().required().min(3).max(20).notOneOf(channelNames),
+      name: yup.string().trim().required()
+        .min(3, t('renameChannelModal.nameLength'))
+        .max(20, t('renameChannelModal.nameLength'))
+        .notOneOf(channelNames),
     }),
     validateOnBlur: false,
     validateOnMount: false,
@@ -65,6 +68,7 @@ const RenameChannelModal = (props) => {
               isInvalid={formik.errors.name}
             />
 
+            <Form.Label visuallyHidden htmlFor="name">{t('renameChannelModal.name')}</Form.Label>
             <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
           </Form.Group>
         </Modal.Body>

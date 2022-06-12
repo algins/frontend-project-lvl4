@@ -48,12 +48,14 @@ const SignupForm = () => {
       }
     },
     validationSchema: yup.object().shape({
-      username: yup.string().trim().required().min(3).max(20),
-      password: yup.string().required().min(6),
+      username: yup.string().trim().required()
+        .min(3, t('signupForm.usernameLength'))
+        .max(20, t('signupForm.usernameLenght')),
+      password: yup.string().required().min(6, t('signupForm.passwordLength')),
       confirmPassword: yup.string().required().oneOf([
         yup.ref('password'),
         null,
-      ]),
+      ], t('signupForm.confirmPasswordMatch')),
     }),
     validateOnBlur: false,
     validateOnMount: false,
@@ -95,7 +97,7 @@ const SignupForm = () => {
                   <Form.Control
                     onChange={formik.handleChange}
                     value={formik.values.username}
-                    placeholder={t('signupForm.usernamePlaceholder')}
+                    placeholder={t('signupForm.usernameLenght')}
                     name="username"
                     id="username"
                     autoComplete="username"
@@ -117,7 +119,7 @@ const SignupForm = () => {
                     type="password"
                     onChange={formik.handleChange}
                     value={formik.values.password}
-                    placeholder={t('signipForm.passwordPlaceholder')}
+                    placeholder={t('signipForm.passwordLength')}
                     name="password"
                     id="password"
                     autoComplete="current-password"
@@ -134,7 +136,7 @@ const SignupForm = () => {
                     type="password"
                     onChange={formik.handleChange}
                     value={formik.values.confirmPassword}
-                    placeholder={t('signupForm.confirmPasswordPlaceholder')}
+                    placeholder={t('signupForm.confirmPasswordMatch')}
                     name="confirmPassword"
                     id="confirmPassword"
                     autoComplete="new-password"

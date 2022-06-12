@@ -52,7 +52,7 @@ const App = () => {
         </Switch>
       </div>
 
-      <ToastContainer />
+      <ToastContainer autoClose={5000} />
     </Router>
   );
 };
