@@ -24,7 +24,7 @@ const renderButton = (channel, currentChannelId, selectChannel) => (
     variant={channel.id === currentChannelId ? 'secondary' : ''}
     className="w-100 rounded-0 text-start text-truncate"
   >
-    # {channel.name}
+    {`# ${channel.name}`}
   </Button>
 );
 
