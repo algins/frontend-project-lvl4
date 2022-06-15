@@ -18,8 +18,9 @@ const init = () => {
     accessToken: process.env.POST_CLIENT_ITEM_ACCESS_TOKEN,
     captureUncaught: true,
     captureUnhandledRejections: true,
+    enabled: process.env.NODE_ENV === 'production',
     payload: {
-      environment: 'production',
+      environment: process.env.NODE_ENV,
     },
   };
 
