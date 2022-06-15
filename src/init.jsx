@@ -15,7 +15,7 @@ import { actions as messagesActions } from './slices/messagesSlice.js';
 
 const init = () => {
   const rollbarConfig = {
-    accessToken: '08ee2c1cc9ea4e979ae63ece376be02d',
+    accessToken: process.env.POST_CLIENT_ITEM_ACCESS_TOKEN,
     captureUncaught: true,
     captureUnhandledRejections: true,
     payload: {
