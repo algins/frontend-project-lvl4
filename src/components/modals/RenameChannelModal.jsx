@@ -10,7 +10,7 @@ import useSocket from '../../hooks/useSocket.js';
 const RenameChannelModal = (props) => {
   const { onHide, modalInfo } = props;
   const { t } = useTranslation();
-  const socket = useSocket();
+  const { renameChannel } = useSocket();
   const inputRef = useRef();
 
   const channelNames = useSelector((state) => {
@@ -27,10 +27,7 @@ const RenameChannelModal = (props) => {
       name: modalInfo.data.name,
     },
     onSubmit: async ({ name }) => {
-      await socket.emit('renameChannel', {
-        id: modalInfo.data.id,
-        name,
-      }, (res) => {
+      await renameChannel(modalInfo.data.id, name, (res) => {
         if (res.status === 'ok') {
           onHide();
           toast.success(t('renameChannelModal.channelRenamed'));

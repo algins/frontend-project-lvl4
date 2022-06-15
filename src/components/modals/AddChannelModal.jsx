@@ -11,7 +11,7 @@ import useSocket from '../../hooks/useSocket.js';
 const AddChannelModal = (props) => {
   const { onHide } = props;
   const { t } = useTranslation();
-  const socket = useSocket();
+  const { addChannel } = useSocket();
   const inputRef = useRef();
 
   const channelNames = useSelector((state) => {
@@ -28,7 +28,7 @@ const AddChannelModal = (props) => {
       name: '',
     },
     onSubmit: async ({ name }) => {
-      await socket.emit('newChannel', {
+      await addChannel({
         id: uniqueId(),
         name,
         removable: true,

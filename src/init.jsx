@@ -38,12 +38,12 @@ const init = () => {
     store.dispatch(channelsActions.newChannel(payload));
   });
 
-  socket.on('renameChannel', (payload) => {
-    store.dispatch(channelsActions.renameChannel(payload));
-  });
-
   socket.on('removeChannel', (payload) => {
     store.dispatch(channelsActions.removeChannel(payload));
+  });
+
+  socket.on('renameChannel', (payload) => {
+    store.dispatch(channelsActions.renameChannel(payload));
   });
 
   return (

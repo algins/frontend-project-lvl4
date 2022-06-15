@@ -8,14 +8,12 @@ import useSocket from '../../hooks/useSocket.js';
 const RemoveChannelModal = (props) => {
   const { onHide, modalInfo } = props;
   const { t } = useTranslation();
-  const socket = useSocket();
+  const { removeChannel } = useSocket();
 
   const formik = useFormik({
     initialValues: {},
     onSubmit: async () => {
-      await socket.emit('removeChannel', {
-        id: modalInfo.data,
-      }, (res) => {
+      await removeChannel(modalInfo.data, (res) => {
         if (res.status === 'ok') {
           onHide();
           toast.success(t('removeChannelModal.channelRemoved'));

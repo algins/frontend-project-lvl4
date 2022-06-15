@@ -11,7 +11,7 @@ import useSocket from '../hooks/useSocket.js';
 const MessageForm = () => {
   const { t } = useTranslation();
   const { authUser } = useAuth();
-  const socket = useSocket();
+  const { addMessage } = useSocket();
   const inputRef = useRef();
   const channelId = useSelector((state) => state.channelsReducer.currentChannelId);
 
@@ -25,7 +25,7 @@ const MessageForm = () => {
     },
     onSubmit: async ({ body }, { resetForm }) => {
       if (body.trim().length > 0) {
-        await socket.emit('newMessage', {
+        await addMessage({
           channelId,
           body,
           sender: authUser.username,
