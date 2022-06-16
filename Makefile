@@ -11,7 +11,6 @@ start-frontend:
 
 install-deps:
 	npm ci
-	npx playwright install
 
 build:
 	npm run build
