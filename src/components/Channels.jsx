@@ -34,8 +34,8 @@ const Channels = () => {
   const { channels, currentChannelId } = useSelector((state) => state.channelsReducer);
   const { modalInfo } = useSelector((state) => state.modalsReducer);
 
-  const hideModal = () => dispatch(modalsActions.setModalInfo({ type: null, data: null }));
-  const showModal = (type, data) => dispatch(modalsActions.setModalInfo({ type, data }));
+  const hideModal = () => dispatch(modalsActions.hideModal());
+  const showModal = (type, data) => dispatch(modalsActions.showModal({ type, data }));
 
   const selectChannel = (id) => () => {
     dispatch(channelsActions.setCurrentChannelId(id));
