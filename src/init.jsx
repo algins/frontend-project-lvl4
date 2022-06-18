@@ -3,15 +3,13 @@ import i18next from 'i18next';
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { Provider as StoreProvider } from 'react-redux';
-import { io } from 'socket.io-client';
+import socket from './socket.js';
 import App from './components/App.jsx';
 import AuthProvider from './components/providers/AuthProvider.jsx';
 import SocketProvider from './components/providers/SocketProvider.jsx';
 import resources from './locales/index.js';
 import setLocale from './locales/yup/setLocale.js';
 import store from './slices/index.js';
-import { actions as channelsActions } from './slices/channelsSlice.js';
-import { actions as messagesActions } from './slices/messagesSlice.js';
 
 const init = () => {
   const rollbarConfig = {
@@ -27,24 +25,6 @@ const init = () => {
   const i18n = i18next.createInstance();
   i18n.init({ lng: 'ru', resources });
   setLocale(i18n);
-
-  const socket = io();
-
-  socket.on('newMessage', (payload) => {
-    store.dispatch(messagesActions.newMessage(payload));
-  });
-
-  socket.on('newChannel', (payload) => {
-    store.dispatch(channelsActions.newChannel(payload));
-  });
-
-  socket.on('removeChannel', (payload) => {
-    store.dispatch(channelsActions.removeChannel(payload));
-  });
-
-  socket.on('renameChannel', (payload) => {
-    store.dispatch(channelsActions.renameChannel(payload));
-  });
 
   return (
     <Provider config={rollbarConfig}>
